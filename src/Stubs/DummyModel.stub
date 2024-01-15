@@ -19,9 +19,14 @@ class {{DummyModel}} extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        {{fillableColumns}}
-    ];
+    
+    protected $guarded = [];
+
+    protected $with = [];
+
+    protected $appends = [];
+
+    public $translatable = [];
 
 {{modelRelations}}
 }
