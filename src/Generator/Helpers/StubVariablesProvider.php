@@ -28,7 +28,7 @@ class StubVariablesProvider
 
     private static function generateReplacementsForType(string $type, GeneratedFileInfo $generatedFileInfo): array
     {
-        if ( ! $generatedFileInfo->shouldSaveAsSeparateClass()) {
+        if (!$generatedFileInfo->shouldSaveAsSeparateClass()) {
             return [];
         }
 
@@ -43,11 +43,15 @@ class StubVariablesProvider
 
     private static function generateBasicReplacements(string $modelName): array
     {
+        $tableName = Str::snake(Str::pluralStudly($modelName));
+        $routeName = Str::kebab(Str::plural($modelName));
         return [
             '{{Dummy}}' => $modelName,
             '{{Dummies}}' => Str::plural($modelName),
             '{{dummy}}' => lcfirst($modelName),
             '{{dummies}}' => lcfirst(Str::plural($modelName)),
+            '{{tableNames}}' => $tableName,
+            '{{routeName}}' => $routeName,
         ];
     }
 

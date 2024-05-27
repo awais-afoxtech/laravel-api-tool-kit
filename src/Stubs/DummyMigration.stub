@@ -15,7 +15,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('{{dummies}}', function (Blueprint $table) {
+        Schema::create('{{tableNames}}', function (Blueprint $table) {
             $table->id();
             {{migrationContent}}
             @if('soft-delete')$table->softDeletes();@endif('soft-delete')
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('{{dummies}}');
+        Schema::dropIfExists('{{tableNames}}');
     }
 };
