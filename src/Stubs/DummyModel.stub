@@ -13,12 +13,6 @@ class {{DummyModel}} extends Model
     use HasFactory@if('filter'), Filterable@endif('filter')@if('soft-delete'), SoftDeletes@endif('soft-delete');
 
     @if('filter')protected string $default_filters = {{DummyFilter}}::class;@endif('filter')
-
-    /**
-     * Mass-assignable attributes.
-     *
-     * @var array
-     */
     
     protected $guarded = [];
 
@@ -27,6 +21,13 @@ class {{DummyModel}} extends Model
     protected $appends = [];
 
     public $translatable = [];
+
+    protected function casts(): array
+    {
+        return [
+            //
+        ];
+    }
 
 {{modelRelations}}
 }
