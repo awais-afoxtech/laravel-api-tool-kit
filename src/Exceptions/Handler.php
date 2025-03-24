@@ -17,6 +17,7 @@ use Illuminate\Validation\ValidationException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
@@ -96,6 +97,9 @@ class Handler extends ExceptionHandler
 
             if ($e instanceof NotAcceptableHttpException) {
                 return $this->responseForNotAcceptableHttpException($e);
+            }
+            if ($e instanceof ConflictHttpException) {
+                return $this->responseForConflictHttpException($e);
             }
         }
 
@@ -249,5 +253,15 @@ class Handler extends ExceptionHandler
             'Too Many Attempts Please Try Again Later.',
             429
         );
+    }
+
+    /**
+     * Response for ConflictHttpException.
+     *
+     * @return JsonResponse
+     */
+    protected function responseForConflictHttpException(ConflictHttpException $e): JsonResponse
+    {
+        return $this->responseConflictError($e->getMessage());
     }
 }
